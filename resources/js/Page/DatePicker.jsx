@@ -9,19 +9,12 @@ import 'react-day-picker/dist/style.css';
 
 export default function Example() {
   const [selected, setSelected] = React.useState(new Date());
-  
-  let footer;
-  if (selected) {
-    footer = <input type="hidden" id="selected-date" value={format(selected, 'PPP')}></input>;
-              // <input type="hidden" id="selected-day" value={format(selected, 'eeee')}></input>;
-  }
 
   return (
       <DayPicker
         mode="single"
         selected={selected}
         onSelect={setSelected}
-        footer={footer}
         weekStartsOn={1}
         styles={{
           month : {color : '#64676A', margin:'1em', height: '720px', paddingTop:'20px'},
