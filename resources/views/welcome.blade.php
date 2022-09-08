@@ -95,7 +95,7 @@
                     <div class="bg-white border border-2 rounded-3">
                         <div id="date-picker" class="d-flex justify-content-center w-100 h-100 fs-3"></div>
                     </div>
-                    <div class="bg-white border border-2 rounded-3">
+                    <div class="bg-white border border-2 rounded-3 p-5">
                         <div id="picked-header">
                             <div id="day-picked"></div>
                             <div id="date-picked"></div>
@@ -136,6 +136,17 @@
         })
     }
     $(window).on('load', function() {
+        let date = $('.rdp-day_selected').attr("aria-label")
+        let year = $(".rdp-caption_label").text().split(" ")[1];
+
+        var dateSplitted = date.split(" ");
+
+        var dayPicked = dateSplitted[2].slice(1,-1);
+        var datePicked = dateSplitted[1] + " " + dateSplitted[0].slice(0,-2) + ", " + year;
+        console.log('test');
+        $("#day-picked").html(dayPicked);
+        $("#date-picked").html(datePicked);
+
         dayTrigger();
         monthTrigger();
     });

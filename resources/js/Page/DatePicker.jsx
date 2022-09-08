@@ -1,17 +1,32 @@
 import React from 'react';
 
-import { format } from 'date-fns';
-import { DayPicker } from 'react-day-picker';
 import ReactDOM from 'react-dom/client';        
+import { DayPicker, Row } from 'react-day-picker';
 
+import { format } from 'date-fns';
+import { differenceInCalendarDays } from 'date-fns';
 import 'react-day-picker/dist/style.css';
 
+function isPastDate(date) {
+  return differenceInCalendarDays(date, new Date()) < 0;
+}
 
-export default function Example() {
+function OnlyFutureRow(props) {
+  const isPastRow = props.dates.every(isPastDate);
+  if (isPastRow) return <></>;
+  return <Row {...props} />;
+}
+
+
+export default function DatePicker() {
   const [selected, setSelected] = React.useState(new Date());
 
   return (
       <DayPicker
+      fromDate={new Date()}
+      components={{ Row: OnlyFutureRow }}
+      // hidden={isPastDate}
+      // showOutsideDays
         mode="single"
         selected={selected}
         onSelect={setSelected}
@@ -28,5 +43,5 @@ export default function Example() {
 }
 
 if(document.getElementById('date-picker')){
-    ReactDOM.createRoot(document.getElementById('date-picker')).render(<Example />);
+    ReactDOM.createRoot(document.getElementById('date-picker')).render(<DatePicker />);
 };
